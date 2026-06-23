@@ -1,3 +1,8 @@
+## 🔗 Wszystkie modele i repozytoria
+Pełna lista projektów znajduje się na stronie:
+https://jbackk-lang.github.io
+---
+
 # Helix‑Astro  
 Analiza widm kosmosu oparta na modelu przejść T₀ / T₁ / T₂.
 
