@@ -71,7 +71,7 @@ Wynik:
 Projekt korzysta z idei helisy z repozytorium:
 
 **TIMDR-Cosmology-Filters**  
-[https://github.com/jbackk-lang/Helix-Lock](https://github.com/jbackk-lang/TIMDR-Cosmology-Filters)
+[https://github.com/jbackk-lang/TIMDR-Cosmology-Filters](https://github.com/jbackk-lang/TIMDR-Cosmology-Filters)
 
 ---
 
