@@ -143,6 +143,15 @@
 <div class="simulation-panel">
     <h1>Koniunkcja Układu Słonecznego: Silnik Solarny</h1>
     <div class="subtitle">Wizualizacja orbit jako punktów rezonansowych w uniwersalnej geometrii pola pola makro.</div>
+    <div class="subtitle" style="opacity:0.7; font-size:12px;">
+        ⚠️ Panel telemetrii (Równowaga Heliosfery, Rezonans Skalarny, Epoka
+        Koniunkcji) jest DEKORACYJNY — wartości liczone są z gołych
+        sin()/cos() od czasu animacji, nie z pozycji planet, nie z żadnych
+        prawdziwych danych astronomicznych, i nie mają związku z metryką
+        „rezonans" liczoną w <code>helix_spectrum.py</code> (RMS pochodnej
+        widma). To wizualizacja, nie wynik analizy — patrz kod źródłowy
+        funkcji <code>drawSimulation()</code> niżej.
+    </div>
     
     <div id="canvas-container">
         <canvas id="solarCanvas" width="800" height="500"></canvas>
@@ -223,7 +232,13 @@
         const centerX = canvas.width / 2;
         const centerY = canvas.height / 2;
 
-        // --- DYNAMICZNA TELEMETRIA ---
+        // --- DYNAMICZNA TELEMETRIA (DEKORACYJNA) ---
+        // Te trzy wartosci to czyste funkcje sin()/cos() od czasu animacji
+        // i suwakow -- NIE sa liczone z pozycji/mas planet ani z zadnych
+        // prawdziwych danych, i nie maja zwiazku z metryka "rezonans" z
+        // helix_spectrum.py (ktora jest RMS pochodnej prawdziwego widma).
+        // Wygladaja fizycznie (GHz, %), ale sa czysto ozdobne -- patrz
+        // ostrzezenie w HTML wyzej.
         const epochYears = time / (Math.PI * 2);
         const resonanceCalc = 14.20 + (matrixIntensity * 72.4) + (Math.sin(time * 0.1) * 0.15);
         const equilibriumCalc = 100 - (timeWarp * 0.4) + (Math.cos(time * 0.5) * 0.05);

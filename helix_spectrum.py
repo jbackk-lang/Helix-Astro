@@ -1,6 +1,18 @@
 import numpy as np
-import matplotlib.pyplot as plt
 import sys
+
+# BUGFIX: matplotlib byl importowany na sztywno na gorze pliku, mimo ze
+# README opisuje go jako opcjonalny ("do wykresow"). Bez zainstalowanego
+# matplotlib caly skrypt padal na ImportError juz przy starcie -- nawet
+# samo liczenie metryk (T0/T1/T2, entropia/zmiennosc/rezonans), ktore nic
+# wspolnego z wykresami nie ma, nie dzialalo. Import jest teraz leniwy:
+# probowany dopiero w analyze(), i tylko gdy rzeczywiscie potrzebny jest
+# wykres (plt.show()) lub zapis do pliku (plt.savefig()).
+try:
+    import matplotlib.pyplot as plt
+    _HAS_MPL = True
+except ImportError:
+    _HAS_MPL = False
 
 def load_spectrum(path):
     data = np.loadtxt(path, delimiter=",")
@@ -86,6 +98,12 @@ def analyze(path, save_path=None):
     t2 = T2(t1)
 
     metrics = compute_metrics(t0, t2)
+    print("Metryki:", metrics)
+
+    if not _HAS_MPL:
+        print("(matplotlib niezainstalowany -- pomijam wykres, "
+              "metryki policzone i zwrocone normalnie)")
+        return metrics
 
     plt.figure(figsize=(10, 6))
     plt.plot(lam, t0, label="T0 – surowe")
@@ -104,8 +122,6 @@ def analyze(path, save_path=None):
     )
     plt.gcf().text(0.72, 0.75, metrics_text, fontsize=10,
                     bbox=dict(boxstyle="round", facecolor="white", alpha=0.85))
-
-    print("Metryki:", metrics)
 
     if save_path:
         plt.tight_layout()
